@@ -15,17 +15,24 @@ public class StudentDaoImpl implements StudentDao {
     @Autowired
     private HibernateTemplate hibernateTemplate;
 
-    @Override
     @Transactional
+    @Override
     public int insert(Student student) {
-        Integer res = (Integer) this.hibernateTemplate.save(student);
+        Integer res = (Integer) hibernateTemplate.save(student);
         return res;
     }
 
-    @Override
     @Transactional
+    @Override
     public void update(Student student) {
-        this.hibernateTemplate.update(student);
+        hibernateTemplate.update(student);
+    }
+
+    @Transactional
+    @Override
+    public void upsert(Student student) {
+        hibernateTemplate.saveOrUpdate(student);
+
     }
 
     @Override
@@ -34,13 +41,8 @@ public class StudentDaoImpl implements StudentDao {
     }
 
     @Override
-    @Transactional
     public Student getStudent(int id) {
- /*       Session session = hibernateTemplate.getSessionFactory().openSession();
-        Student student = session.load(Student.class, id);
-        session.close();
-        return student;*/
-        return hibernateTemplate.load(Student.class, id);
+        return hibernateTemplate.get(Student.class, id);
     }
 
     @Override

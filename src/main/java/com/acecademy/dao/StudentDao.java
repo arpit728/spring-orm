@@ -11,9 +11,12 @@ public interface StudentDao {
 
     void update(Student student);
 
+    void upsert(Student student);
+
     int delete(int id);
 
     Student getStudent(int id);
 
     List<Student> getAllStudent();
 }
+
